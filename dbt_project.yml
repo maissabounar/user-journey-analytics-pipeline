@@ -1,1 +1,21 @@
+name: 'user_journey_analytics'
+version: '1.0'
+config-version: 2
+
+profile: 'default'  
+model-paths: ["models"]
+seed-paths: ["seeds"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+docs-paths: ["docs"]
+
+models:
+  user_journey_analytics:
+    staging:
+      materialized: view
+    intermediate:
+      materialized: view
+    marts:
+      materialized: table
 
