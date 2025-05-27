@@ -1,4 +1,8 @@
 # user-journey-analytics-pipeline
+![DBT](https://img.shields.io/badge/dbt-%F0%9F%94%A5%20build%20ready-orange)
+![BigQuery](https://img.shields.io/badge/warehouse-BigQuery-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-anonymized%20demo-yellow)
 
 This repository contains a complete end-to-end data pipeline built with **dbt** and **BigQuery**, designed to track and analyze user interactions across mobile apps and web portals. It shows a professional-grade architecture for extracting behavioral patterns, enriching with external metadata, and powering campaign exports.
 
