@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: mart_user_journey_export
+    description: >
+      Final export model combining user profile, app & web events, and company mapping.
+      Includes sessions, interactions, and contract metadata.
+    columns:
+      - name: event_date
+        description: Date of the user interaction.
+      - name: user_ref_id
+        description: Anonymized user identifier.
+        tests:
+          - not_null
+      - name: contract_origin
+        description: Origin of the user's contract.
+      - name: insurer
+        description: Insurer of the user's contract.
+      - name: local_entity
+        description: Local entity managing the contract.
+      - name: benefit_type
+        description: Type of benefit or service covered.
+      - name: delegation
+        description: Delegation type (internal/external).
+      - name: company_id
+        description: Anonymized company identifier (SIREN equivalent).
+      - name: company_name
+        description: Anonymized company name.
+      - name: age
+        description: User's age.
+      - name: contract_category
+        description: Contract segment type (group/individual).
+      - name: source
+        description: Source of interaction (web or app).
+      - name: device_type
+        description: Device type used (Android/iOS/Web).
+      - name: nb_sessions
+        description: Number of sessions for the day.
+      - name: nb_quotations
+        description: Number of quote submissions.
+      - name: nb_claims_standard
+        description: Number of standard claims submitted.
+      - name: nb_claims_special
+        description: Number of special (SNR) claims submitted.
+      - name: sessions_last_12mo
+        description: Total sessions over the last 12 months.
