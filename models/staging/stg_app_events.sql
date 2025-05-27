@@ -6,31 +6,33 @@ with date_range as (
 
 select
   event_date as event_day,
+  
+  -- anonymized user identifier
   (select value.string_value 
    from unnest(user_properties) 
-   where key = "customer_id" and regexp_contains(value.string_value, r'^\d{8,9}$')
-  ) as customer_id,
+   where key = "user_ext_id" and regexp_contains(value.string_value, r'^\d{8,9}$')
+  ) as user_ref_id,
 
   platform as device_type,
 
-  -- Connexions = session_start
-  count(distinct case when event_name = 'session_start' 
-    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as session_events,
+  -- Session start event
+  count(distinct case when event_name = 'event_session_start' 
+    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as nb_sessions,
 
-  -- Envoi devis
-  count(distinct case when event_name = 'quotation_sent' 
-    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as quotation_events,
+  -- Quote submission
+  count(distinct case when event_name = 'event_submit_quote' 
+    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as nb_quotes_submitted,
 
-  -- Demande remboursement classique
-  count(distinct case when event_name = 'claim_sent_standard' 
-    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as claim_standard_events,
+  -- Standard request submission
+  count(distinct case when event_name = 'event_submit_request_std' 
+    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as nb_requests_std,
 
-  -- Demande remboursement SNR
-  count(distinct case when event_name = 'claim_sent_special' 
-    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as claim_special_events
+  -- Special request submission
+  count(distinct case when event_name = 'event_submit_request_special' 
+    then concat(user_pseudo_id, "-", cast(event_timestamp as string)) end) as nb_requests_special
 
 from 
-  `project_id.analytics_app.events_*` as events,
+  `project_anon.analytics_mobile.events_*` as events,
   date_range
 
 where
