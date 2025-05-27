@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: stg_app_events
+    description: >
+      Staging model that extracts and formats raw GA4 app event data,
+      including sessions and key user interactions (quotations, claims, etc.).
+    columns:
+      - name: event_day
+        description: Day of the event
+        tests:
+          - not_null
+
+      - name: customer_id
+        description: Unique user identifier extracted from user_properties
+        tests:
+          - not_null
+
+      - name: device_type
+        description: Platform used (e.g. Android, iOS)
+        tests: []
+
+      - name: session_events
+        description: Number of session_start events per user per day
+
+      - name: quotation_events
+        description: Number of quotation_sent events
+
+      - name: claim_standard_events
+        description: Number of standard claim events sent by the user
+
+      - name: claim_special_events
+        description: Count of a secondary category of claim-type interactions
+
+  - name: stg_web_events
+description: >
+  Staging model for web interactions on the public customer portal,
+  extracting key form submissions like payment requests, quotations, and messages.
+    columns:
+      - name: event_day
+        description: Event date
+        tests:
+          - not_null
+
+      - name: customer_id
+        description: Unique user identifier
+        tests:
+          - not_null
+
+      - name: sessions
+        description: Total number of sessions per user per day
+
+      - name: is_webview
+        description: Boolean indicator if the session was inside a webview
+
+      - name: payment_request_events
+        description: Count of payment request form submissions
+
+      - name: quotation_events
+        description: Count of quotation form submissions
+
+      - name: send_message_events
+        description: Count of contact/message form submissions
